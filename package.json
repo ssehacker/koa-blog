@@ -1,0 +1,27 @@
+{
+  "name": "koa-blog",
+  "version": "0.0.1",
+  "description": "A blog build by koa.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssehacker/koa-blog.git"
+  },
+  "keywords": [
+    "koa",
+    "blog"
+  ],
+  "author": "ssehacker@163.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ssehacker/koa-blog/issues"
+  },
+  "homepage": "https://github.com/ssehacker/koa-blog#readme",
+  "dependencies": {
+    "koa": "^2.0.0"
+  }
+}
