@@ -1,7 +1,7 @@
 var Koa = require('koa');
 var app = new Koa();
 
-app.use(async function responseTime(ctx, next){
+/*app.use(async function responseTime(ctx, next){
 	var start = new Date();
 	await next();
 	var ms = new Date() -start;
@@ -37,6 +37,46 @@ app.use(async function body(ctx, next){
 	console.log('body....');
 	if(ctx.path !== '/') return ;
 	ctx.body = 'Hello World!!!!!!';
-});
+});*/
+
+//test
+
+function* foo1(next){
+
+	console.log('====>1');
+	yield next;
+	console.log('1<====');
+}
+
+function* foo2(next){
+
+	console.log('====>1');
+	yield next;
+	console.log('1<====');
+}
+
+function* foo3(next){
+
+	console.log('====>1');
+	yield next;
+	console.log('1<====');
+}
+
+var ctx={};
+function* all(){
+	console.log('======>all');
+	yield foo1(foo2(foo3()));
+	console.log('all<======');
+}
+
+var generator = all();
+
+console.log( generator.next());
+console.log( generator.next());
+console.log( generator.next());
+console.log( generator.next());
+console.log( generator.next());
+
+
 
 app.listen(3000);

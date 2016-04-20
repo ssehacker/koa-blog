@@ -27,6 +27,7 @@
     "koa": "^2.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5"
+    "babel-cli": "^6.7.5",
+    "babel-plugin-transform-async-to-generator": "^6.0.14"
   }
 }
