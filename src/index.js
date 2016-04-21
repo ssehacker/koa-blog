@@ -1,5 +1,6 @@
 var Koa = require('koa');
 var app = new Koa();
+var fs = require('fs');
 
 var compose = require('koa-compose');
 
@@ -45,106 +46,41 @@ app.use(async function body(ctx, next){
 
 var co = require('co');
 
-function compose1(middleware){
-  return function *(next){
-    if (!next) next = noop();
-
-    var i = middleware.length;
-
-    while (i--) {
-      next = middleware[i].call(this, next);
-    }
-
-    return yield *next;
-  }
+function readFile(path) {
+  return function (cb) {
+  	console.log('readfile');
+    fs.readFile(path, {encoding: 'utf8'}, cb);
+  };
 }
 
-/**
- * Noop.
- *
- * @api private
- */
+co(function* (){
 
-function *noop(){}
+	console.log('in...');
+	var result = yield Promise.resolve({data:'balabala...'});
+	console.log(result);
+	result = yield Promise.resolve({data:'balabala2...'});
+	console.log(result);
 
+	var result = yield readFile('package.json');
+	console.log(result);
 
+	var result = yield [Promise.resolve({data:'balabala...'}),13,14,15,16];
+	console.log(result);
 
-function* foo(next){
-	console.log('foo0 in');
-	return  yield* next;
-	// console.log('foo0 out');
-	// return temp;
-}
-
-function* foo1(next){
-	console.log('foo1 in');
-	return yield next;
-	// console.log('foo1 out');
-	// return temp+'11';
-}
-
-function* foo2(){
-	console.log('foo2 in');
-	yield Promise.resolve(1);
-	// console.log('foo2 out');
-	// return temp;
-}
+	var result = yield readFile('package.json');
+	console.log(result);
+	
 
 
-// var generator = compose1([foo,foo1,foo2]);
-var generator = foo(foo1(foo2()));
+	console.log('out...');
+  	return result;
 
-
-console.log(generator.next());
-// console.log(generator.next());
-// console.log(generator.next());
-
-
-// function* g0() {
-// 	console.log('0 in..');
-//   yield 3;
-//   console.log('0 out..');
-// }
-
-
-// function* g1() {
-// 	console.log('1 in..');
-//   yield 2;
-//   yield* g0();
-//   yield 4;
-//   console.log('1 out..');
-// }
-
-// function* g2() {
-// 	console.log('2 in..');
-//   yield 1;
-//   yield* g1();
-//   yield 5;
-//   console.log('2 out..');
-// }
-
-// var iterator = g2();
-
-// console.log(iterator.next()); // { value: 1, done: false }
-// console.log(iterator.next()); // { value: 2, done: false }
-// console.log(iterator.next()); // { value: 3, done: false }
-// console.log(iterator.next()); // { value: 4, done: false }
-// console.log(iterator.next()); // { value: 5, done: false }
-// console.log(iterator.next()); // { value: undefined, done: true }
-
-
-
-
-
-
-
-
-
-// co(aa()).then(function(value){
-// console.log(arguments);
-// }).catch(function(err){
-// 	console.log(err);
-// });
+}).then(function(){
+	console.log('-----------------');
+	console.log(arguments);
+}).catch(function (err) {
+  console.log(err);
+});
 
 
 
