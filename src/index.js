@@ -4,6 +4,7 @@ var fs = require('fs');
 
 var compose = require('koa-compose');
 
+//koa v2
 /*app.use(async function responseTime(ctx, next){
 	var start = new Date();
 	await next();
@@ -39,48 +40,33 @@ app.use(async function body(ctx, next){
 	// await next;
 	console.log('body....');
 	if(ctx.path !== '/') return ;
-	ctx.body = 'Hello World!!!!!!';
+	ctx='hello world';
+	
 });*/
 
-//test
 
-var co = require('co');
+//koa v1
 
-function readFile(path) {
-  return function (cb) {
-  	console.log('readfile');
-    fs.readFile(path, {encoding: 'utf8'}, cb);
-  };
-}
-
-co(function* (){
-
-	console.log('in...');
-	var result = yield Promise.resolve({data:'balabala...'});
-	console.log(result);
-	result = yield Promise.resolve({data:'balabala2...'});
-	console.log(result);
-
-	var result = yield readFile('package.json');
-	console.log(result);
-
-	var result = yield [Promise.resolve({data:'balabala...'}),13,14,15,16];
-	console.log(result);
-
-	var result = yield readFile('package.json');
-	console.log(result);
-	
-
-
-	console.log('out...');
-  	return result;
-
-}).then(function(){
-	console.log('-----------------');
-	console.log(arguments);
-}).catch(function (err) {
-  console.log(err);
+app.use(function* (next){
+	var start = new Date();
+	yield next;
+	var used = new Date() - start;
+	console.log('%s %s %s ms',this.method, this.url, used);
 });
+
+app.use(function* (next){
+	console.log('body in ...');
+	// this.body = fs.createReadStream('package.json');
+	// You may only yield a function, promise, generator, array, or object
+	this.body = yield readFile('package.json');
+	console.log(this.body);
+})
+
+function readFile(path){
+	return function(callback){
+		fs.readFile(path, {encoding: 'utf8'}, callback);
+	}
+}
 
 
 
