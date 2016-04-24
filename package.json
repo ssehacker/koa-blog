@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./lib/index.js",
     "prestart": "npm run build",
-    "build": "babel src -d lib",
+    "build": "gulp & babel src -d lib",
     "demo": "npm run build & node ./lib/demo-co.js"
   },
   "repository": {
@@ -25,10 +25,18 @@
   },
   "homepage": "https://github.com/ssehacker/koa-blog#readme",
   "dependencies": {
-    "koa": "^2.0.0"
+    "ejs": "^2.4.1",
+    "jade": "^1.11.0",
+    "koa": "^2.0.0",
+    "koa-views": "^5.0.1",
+    "nunjucks": "^2.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
-    "babel-plugin-transform-async-to-generator": "^6.0.14"
+    "babel-plugin-transform-async-to-generator": "^6.0.14",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "koa-views": "^5.0.1"
   }
 }

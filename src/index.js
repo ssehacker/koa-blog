@@ -1,16 +1,51 @@
 var Koa = require('koa');
 var app = new Koa();
 var fs = require('fs');
+var co = require('co');
 
-var compose = require('koa-compose');
+
+var views = require('koa-views');
+
+app.use(views(__dirname + '/views', {
+	extension: 'jade',
+	pretty: true, //not work?? why???
+	map: {
+		jade: 'jade'
+	}
+}));
+
+app.keys = ['secret', 'keys'];
+var option = {
+		httpOnly:false,
+		signed: true,
+		overwrite: true
+	};
 
 //koa v2
-/*app.use(async function responseTime(ctx, next){
+app.use(async function responseTime(ctx, next){
 	var start = new Date();
 	await next();
 	var ms = new Date() -start;
 	ctx.set('X-Response-Time', ms+'ms');
+
+	var view = ctx.cookies.get('view',option);
+
+	console.log('type: '+ctx.response.type)
 	console.log('X-Response-Time: '+ ms+'ms');
+
+});
+
+
+app.use(async (ctx,next)=>{
+	try{
+		await next();
+	}catch(err){
+		if(err){
+			console.log(err);
+			ctx.body = err;
+			ctx.status = 500;
+		}
+	}
 });
 
 function logger(format){
@@ -36,37 +71,41 @@ app.use(async function contentLength(ctx,next){
 });
 
 
-app.use(async function body(ctx, next){
+app.use(async (ctx, next)=>{
 	// await next;
 	console.log('body....');
-	if(ctx.path !== '/') return ;
-	ctx='hello world';
+
+	var user = {
+		name: {
+			first: 'Tobi',
+			last: 'Holowaychuk'
+		},
+		species: 'ferret',
+		age: 3
+	};
+
+	if(ctx.path === '/') {
+		await ctx.render('user.jade', {user: user});
+		// ctx.body = await Promise.resolve('hello world');
+		ctx.response.type='text/html';
+	}else if(ctx.path ==='/error'){
+		throw new Error('内部错误。。。');
+	}else{
+		return;
+	}
+
+	var view = ctx.cookies.get('view',option);
+	if(!view){
+		ctx.cookies.set('view', 1,option);
+		ctx.cookies.set('id', 'wertyjjhdfghjkadASD',option);
+	}
+
+	console.log(ctx.cookies.get('view',option));
 	
-});*/
-
-
-//koa v1
-
-app.use(function* (next){
-	var start = new Date();
-	yield next;
-	var used = new Date() - start;
-	console.log('%s %s %s ms',this.method, this.url, used);
 });
 
-app.use(function* (next){
-	console.log('body in ...');
-	// this.body = fs.createReadStream('package.json');
-	// You may only yield a function, promise, generator, array, or object
-	this.body = yield readFile('package.json');
-	console.log(this.body);
-})
 
-function readFile(path){
-	return function(callback){
-		fs.readFile(path, {encoding: 'utf8'}, callback);
-	}
-}
+
 
 
 
