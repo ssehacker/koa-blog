@@ -1,5 +1,8 @@
 var gulp = require('gulp');
 var gulpJade = require('gulp-jade');
+var less = require('gulp-less');
+var path = require('path');
+
 var jade = require('jade');
 var del = require('del');
 
@@ -11,10 +14,22 @@ gulp.task('copy-views',['clean-up'], function(){
 	return gulp.src(['views/**/*']).pipe(gulp.dest('lib/views'));
 });
 
-gulp.task('copy-static',['clean-up'], function(){
-	return gulp.src(['public/**/*']).pipe(gulp.dest('lib/public'));
+gulp.task('copy-images',['clean-up'], function(){
+	return gulp.src(['public/images/**/*']).pipe(gulp.dest('lib/public/images'));
 });
 
+gulp.task('copy-js',['clean-up'], function(){
+	return gulp.src(['public/js/**/*']).pipe(gulp.dest('lib/public/js'));
+});
+
+
+gulp.task('less', ['clean-up'], function () {
+  return gulp.src('./public/css/**/*.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, './public/css', 'includes') ]
+    }))
+    .pipe(gulp.dest('./lib/public/css'));
+});
 
 // gulp.task('compile-views',['clean-up'], function(){
 // 	return gulp.src(['views/**/*.jade'])
@@ -26,4 +41,4 @@ gulp.task('copy-static',['clean-up'], function(){
 // });
 
 
-gulp.task('default', ['copy-views', 'copy-static']);
+gulp.task('default', ['copy-views', 'copy-images', 'copy-js', 'less']);

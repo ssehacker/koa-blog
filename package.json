@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./lib/index.js",
-    "prestart": "npm run build",
-    "build": "gulp & babel src -d lib",
+    "prestart": "babel src -d lib",
+    "build": "gulp",
     "demo": "npm run build & node ./lib/demo-co.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-jade": "^1.1.0",
+    "gulp-less": "^3.0.5",
     "koa-views": "^5.0.1"
   }
 }
