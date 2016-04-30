@@ -25,11 +25,11 @@
   },
   "homepage": "https://github.com/ssehacker/koa-blog#readme",
   "dependencies": {
-    "ejs": "^2.4.1",
     "jade": "^1.11.0",
     "koa": "^2.0.0",
-    "koa-views": "^5.0.1",
-    "nunjucks": "^2.4.2"
+    "koa-router": "^7.0.1",
+    "koa-static": "^2.0.0",
+    "koa-views": "^5.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

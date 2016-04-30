@@ -1,11 +1,8 @@
 var Koa = require('koa');
 var app = new Koa();
 var fs = require('fs');
-var co = require('co');
-
 
 var views = require('koa-views');
-
 app.use(views(__dirname + '/views', {
 	extension: 'jade',
 	pretty: true, //not work?? why???
@@ -14,12 +11,19 @@ app.use(views(__dirname + '/views', {
 	}
 }));
 
-app.keys = ['secret', 'keys'];
+/*app.keys = ['secret', 'keys'];
 var option = {
 		httpOnly:false,
 		signed: true,
 		overwrite: true
-	};
+	};*/
+
+
+
+var serve = require('koa-static');
+app.use(serve(__dirname + '/public'));
+
+
 
 //koa v2
 app.use(async function responseTime(ctx, next){
@@ -27,15 +31,22 @@ app.use(async function responseTime(ctx, next){
 	await next();
 	var ms = new Date() -start;
 	ctx.set('X-Response-Time', ms+'ms');
-
-	var view = ctx.cookies.get('view',option);
-
-	console.log('type: '+ctx.response.type)
 	console.log('X-Response-Time: '+ ms+'ms');
 
 });
 
 
+var router = require('./router.js');
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
+
+
+
+
+
+/*
 app.use(async (ctx,next)=>{
 	try{
 		await next();
@@ -103,7 +114,7 @@ app.use(async (ctx, next)=>{
 	console.log(ctx.cookies.get('view',option));
 	
 });
-
+*/
 
 
 

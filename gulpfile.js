@@ -7,9 +7,14 @@ gulp.task('clean-up', function(){
 	return del(['lib/**/*']);
 });
 
-gulp.task('compile-views',['clean-up'], function(){
+gulp.task('copy-views',['clean-up'], function(){
 	return gulp.src(['views/**/*']).pipe(gulp.dest('lib/views'));
 });
+
+gulp.task('copy-static',['clean-up'], function(){
+	return gulp.src(['public/**/*']).pipe(gulp.dest('lib/public'));
+});
+
 
 // gulp.task('compile-views',['clean-up'], function(){
 // 	return gulp.src(['views/**/*.jade'])
@@ -21,4 +26,4 @@ gulp.task('compile-views',['clean-up'], function(){
 // });
 
 
-gulp.task('default', ['compile-views']);
+gulp.task('default', ['copy-views', 'copy-static']);
