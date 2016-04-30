@@ -10,6 +10,17 @@ This is a simple koa2.0 application template.
 - koa-static
 - jade
 
+###Run
+build and start: 
+```
+npm run build
+```
+and then:
+```
+npm start
+```
+
+
 
 ###Debug
 set DEBUT=koa* before run application.
