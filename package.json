@@ -8,7 +8,7 @@
     "start": "node ./lib/index.js",
     "prestart": "babel src -d lib",
     "build": "gulp",
-    "demo": "npm run build & node ./lib/demo-co.js"
+    "demo": "node ./lib/demo-co.js"
   },
   "repository": {
     "type": "git",

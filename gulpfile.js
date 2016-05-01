@@ -22,7 +22,6 @@ gulp.task('copy-js',['clean-up'], function(){
 	return gulp.src(['public/js/**/*']).pipe(gulp.dest('lib/public/js'));
 });
 
-
 gulp.task('less', ['clean-up'], function () {
   return gulp.src('./public/css/**/*.less')
     .pipe(less({
@@ -30,6 +29,8 @@ gulp.task('less', ['clean-up'], function () {
     }))
     .pipe(gulp.dest('./lib/public/css'));
 });
+
+
 
 // gulp.task('compile-views',['clean-up'], function(){
 // 	return gulp.src(['views/**/*.jade'])

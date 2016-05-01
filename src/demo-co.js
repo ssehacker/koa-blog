@@ -35,8 +35,11 @@ var aa =async ()=>{
 	});
 
 	console.log('\n\nasync way-----content: '+ content);
+	return content;
 };
 
-aa();
+aa().then(function(data){
+	console.log('data:', data);
+});
 
 
