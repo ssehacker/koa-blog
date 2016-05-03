@@ -1,5 +1,7 @@
 var router = require('koa-router')();
+var VideoService=require('./services/video-service.js');
 
+var vs = new VideoService();
 //video list
 var videos = [
 	{
@@ -24,10 +26,11 @@ var video ={
 	title: '起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场',
 	voteCount: 10,
 	publishDate: '1周前'	
-}
+};
 
 router.get('/', async (ctx, next) =>{
-	await ctx.render('index.jade', {videos: videos});
+	let docs = await vs.getVideoOfToday();
+	await ctx.render('index.jade', {videos: docs});
 });
 
 router.get('/video/:id', async (ctx, next) =>{

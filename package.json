@@ -29,7 +29,8 @@
     "koa": "^2.0.0",
     "koa-router": "^7.0.1",
     "koa-static": "^2.0.0",
-    "koa-views": "^5.0.1"
+    "koa-views": "^5.0.1",
+    "mongodb": "^2.1.18"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
