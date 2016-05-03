@@ -1,0 +1,24 @@
+//- layout.jade
+doctype html
+html(xmlns:wb='http://open.weibo.com/wb')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		block title
+			title LOL精彩视频————LOL超神视频 ｜ LOL超鬼视频 ｜LOL5杀视频
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous')
+		link(ref='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css' integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r' crossorigin='anonymous')
+		link(href='/css/common.css' rel='stylesheet')
+		link(href='/css/main.css' rel='stylesheet')
+	body
+		include header.jade
+		include banner.jade
+		include nav.jade
+		block content
+			h1 Here is content
+		include footer.jade
+
+		script(src='http://tjs.sjs.sinajs.cn/open/api/js/wb.js' charset='utf-8')
+		script(src='//code.jquery.com/jquery-1.11.0.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous')

@@ -14,4 +14,9 @@ router.get('/', async (ctx, next) =>{
 	await ctx.render('index.jade', {user: user});
 });
 
+router.get('/video/:id', async (ctx, next) =>{
+	
+	await ctx.render('video.jade', {user: user});
+});
+
 module.exports= router;
