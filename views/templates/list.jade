@@ -4,7 +4,7 @@ section.content
 			.video-box.col-sm-4.col-xs-12
 				img.img-rounded.img-responsive(src='http://r4.ykimg.com/0541010157260AB4641DA419FA98C5D4')
 				div.video-t 
-					a(href='/video/1') !{video.title}
+					a(href='/video/#{video._id}') !{video.title}
 				div.video-i
 					span.vote.glyphicon.glyphicon-thumbs-up !{video.voteCount}
 					span.v-date !{video.publishDate}

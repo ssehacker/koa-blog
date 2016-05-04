@@ -2,23 +2,7 @@ var router = require('koa-router')();
 var VideoService=require('./services/video-service.js');
 
 var vs = new VideoService();
-//video list
-var videos = [
-	{
-		id: 10001,
-		img:'http://r4.ykimg.com/0541010157260AB4641DA419FA98C5D4',
-		title: '起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场',
-		voteCount: 1023,
-		publishDate: '1周前'	
-	},
-	{
-		id: 10001,
-		img:'http://r4.ykimg.com/0541010157260AB4641DA419FA98C5D4',
-		title: '起小点TOP10 VOL192 老树盘根！亚洲捆绑教你扭曲战场',
-		voteCount: 10,
-		publishDate: '1周前'	
-	}
-];
+
 
 var video ={
 	id: 10001,
@@ -28,14 +12,19 @@ var video ={
 	publishDate: '1周前'	
 };
 
-router.get('/', async (ctx, next) =>{
-	let docs = await vs.getVideoOfToday();
-	await ctx.render('index.jade', {videos: docs});
+router.get(['/','/new'], async (ctx, next) =>{
+	let docs = await vs.getRecentVideo();
+	await ctx.render('index.jade', {videos: docs, sub: 'new'});
 });
 
 router.get('/video/:id', async (ctx, next) =>{
-	
 	await ctx.render('video.jade', {video: video});
 });
+
+router.get('/hot', async (ctx, next) =>{
+	let docs = await vs.getHotVideo(1);
+	await ctx.render('index.jade', {videos: docs, sub: 'hot'});
+});
+
 
 module.exports= router;

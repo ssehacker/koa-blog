@@ -9,9 +9,17 @@ nav.navbar.navbar-default
 			a.navbar-brand(href='/') LOL
 		.collapse.navbar-collapse#bs-example-navbar-collapse-1
 			ul.nav.navbar-nav
-				li.active
-					a(href='/') 最新视频
-						span.sr-only (current)
-				li
-					a(href='#') 热门视频
+				if sub=='new'
+					li.active
+						a(href='/new') 最新视频
+							span.sr-only (current)
+					li
+						a(href='/hot') 热门视频
+				else if sub=='hot'
+					li
+						a(href='/new') 最新视频
+					li.active
+						a(href='/hot') 热门视频
+							span.sr-only (current)
+				
 			//- Search Box will add later.

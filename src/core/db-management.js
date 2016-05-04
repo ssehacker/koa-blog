@@ -41,6 +41,29 @@ class DBMgmt{
 	}
 
 	/**
+	 * @param  {String}	collection
+	 * @param  {Object} query
+	 * @param  {Object} option, contains pageNumber and pageSize
+	 * @return {Array}
+	 */
+	async pagingQuery(collection, query, orderBy,option){
+		let db = await this.getConn();
+		let coll = db.collection(collection);
+		let docs = await new Promise((resolve, reject)=>{
+			let skip = option.pageNumber>0 ? ((option.pageNumber -1)*option.pageSize) : 0;
+
+			coll.find(query).sort(orderBy).skip(skip).limit(option.pageSize).toArray(function(err, docs){
+				if(err){
+					reject(err);
+				}else{
+					resolve(docs);
+				}
+			});
+		});
+		return docs;
+	}
+
+	/**
 	 * @param  {String} collection
 	 * @param  {Object or Array} objects will be inserted.
 	 * @return {Number} inserted Count.
