@@ -21,9 +21,14 @@ router.get('/video/:id', async (ctx, next) =>{
 	await ctx.render('video.jade', {video: video});
 });
 
-router.get('/hot', async (ctx, next) =>{
-	let docs = await vs.getHotVideo(1);
-	await ctx.render('index.jade', {videos: docs, sub: 'hot'});
+router.get(['/hot', '/hot/:page'], async (ctx, next) =>{
+	let page = ctx.params.page || 1;
+	let docs = await vs.getHotVideo(page);
+	await ctx.render('index.jade', {
+		videos: docs.list, 
+		count: docs.count,
+		sub: 'hot'
+	});
 });
 
 

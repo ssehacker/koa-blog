@@ -28,7 +28,14 @@ class VideoService{
 
 		let order = {voteCount: -1};
 		let docs = await this.dbMgt.pagingQuery(this.collection, {}, order, option);
-		return docs;
+		let count = await this.dbMgt.runCommand({
+			count: 'videos'
+		});
+
+		return {
+			list: docs,
+			count: count.n===0? 0 :Math.floor((count.n-1)/option.pageSize)+1
+		};
 	}
 
 	async getVideoById(id){

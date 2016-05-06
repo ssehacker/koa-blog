@@ -8,4 +8,10 @@ section.content
 				div.video-i
 					span.vote.glyphicon.glyphicon-thumbs-up !{video.voteCount}
 					span.v-date !{video.publishDate}
-		
+		if count && count>1
+			- var i=0
+			ul.page-box
+				while i < count
+					li
+						a(href='/hot/#{++i}') !{i}
+				li(style='clear:both')

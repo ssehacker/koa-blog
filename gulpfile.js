@@ -22,6 +22,10 @@ gulp.task('copy-js',['clean-up'], function(){
 	return gulp.src(['public/js/**/*']).pipe(gulp.dest('lib/public/js'));
 });
 
+gulp.task('copy-bootstrap',['clean-up'], function(){
+	return gulp.src(['public/bootstrap/**/*']).pipe(gulp.dest('lib/public/bootstrap'));
+});
+
 gulp.task('less', ['clean-up'], function () {
   return gulp.src('./public/css/**/*.less')
     .pipe(less({
@@ -42,4 +46,4 @@ gulp.task('less', ['clean-up'], function () {
 // });
 
 
-gulp.task('default', ['copy-views', 'copy-images', 'copy-js', 'less']);
+gulp.task('default', ['copy-views', 'copy-images','copy-bootstrap', 'copy-js', 'less']);

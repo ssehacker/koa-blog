@@ -41,6 +41,17 @@ class DBMgmt{
 	}
 
 	/**
+	 * reference: https://docs.mongodb.com/manual/reference/command/
+	 * @param  {[type]} command [description]
+	 * @return {[type]}         [description]
+	 */
+	async runCommand(command){
+		let db = await this.getConn();
+		let res = db.command(command);
+		return Promise.resolve(res);
+	}
+
+	/**
 	 * @param  {String}	collection
 	 * @param  {Object} query
 	 * @param  {Object} option, contains pageNumber and pageSize
