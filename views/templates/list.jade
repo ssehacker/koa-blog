@@ -2,11 +2,13 @@ section.content
 	.content-box
 		each video in videos
 			.video-box.col-sm-4.col-xs-12
-				img.img-rounded.img-responsive(src='http://r4.ykimg.com/0541010157260AB4641DA419FA98C5D4')
+				img.img-rounded.img-responsive(src='#{video.img}')
 				div.video-t 
 					a(href='/video/#{video._id}') !{video.title}
 				div.video-i
-					span.vote.glyphicon.glyphicon-thumbs-up !{video.voteCount}
+					span.vote
+						a.glyphicon.glyphicon-thumbs-up 
+						span !{video.voteCount}
 					span.v-date !{video.publishDate}
 		if count && count>1
 			- var i=0

@@ -26,7 +26,8 @@
 		    height: 0;
 	    }
 		li {
-			float: left;
+			display: inline-block;
+    		margin: 10px 0;
 			a {
 				border: 1px solid #ccc;
 				padding: 10px;
@@ -37,6 +38,9 @@
 .video-box{
 	padding-top: 10px;
 	margin-bottom: @base-height;
+    display: inline-block;
+    float: none;
+    vertical-align: top;
 }
 .video-t {
 	overflow : hidden;
@@ -60,6 +64,17 @@
 }
 .video-i .vote{
 	float:left;
+	font-size: 20px;
+	cursor: pointer;
+	a{
+	    cursor: pointer;
+    	text-decoration: none;
+	}
+	span{
+	    font-size: 13px;
+	    line-height: 20px;
+	    text-indent: 5px;
+	}
 }
 .video-i .v-date{
 	float:right;
