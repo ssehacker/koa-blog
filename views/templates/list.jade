@@ -3,7 +3,7 @@ section.content
 		each video in videos
 			.video-box.col-sm-4.col-xs-12
 				a(href='/video/#{video._id}')
-					img.img-rounded.img-responsive(src='#{video.img}')
+					img.img-rounded.img-responsive(src='#{video.img||"/images/404.png"}')
 				div.video-t 
 					a(href='/video/#{video._id}') !{video.title}
 				div.video-i

@@ -9,7 +9,7 @@ class VideoService{
 	/**
 	 * @return {Array} videos in 7 days.
 	 */
-	async getRecentVideo(){
+	async getRecentVideos(){
 		let lastDay = new Date();
 		lastDay.setDate(lastDay.getDate()-7);
 		let docs = await this.dbMgt.find(this.collection, {publishDate: {$gte: lastDay}});
@@ -20,7 +20,7 @@ class VideoService{
 	 * @param  {Number} pageNumber
 	 * @return {Array} videos
 	 */
-	async getHotVideo(pageNumber){
+	async getHotVideos(pageNumber){
 		let option ={
 			pageSize: 10
 		};

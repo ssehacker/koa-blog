@@ -20,18 +20,25 @@ var video ={
 };
 
 router.get(['/','/new'], async (ctx, next) =>{
-	let docs = await vs.getRecentVideo();
+	let docs = await vs.getRecentVideos();
 	parse(docs);
 	await ctx.render('index.jade', {videos: docs, sub: 'new'});
 });
 
 router.get('/video/:id', async (ctx, next) =>{
-	await ctx.render('video.jade', {video: video});
+	let id = ctx.params.id || 1;
+	let video = await vs.getVideoById(id);
+	if(video && video._id){
+		await ctx.render('video.jade', {video: video});
+	}else{
+		//video doesn't exist
+		ctx.status = 404;
+	}
 });
 
 router.get(['/hot', '/hot/:page'], async (ctx, next) =>{
 	let page = ctx.params.page || 1;
-	let docs = await vs.getHotVideo(page);
+	let docs = await vs.getHotVideos(page);
 	parse(docs.list);
 	await ctx.render('index.jade', {
 		videos: docs.list, 
